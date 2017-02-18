@@ -65,6 +65,7 @@ export class RegisterPage {
     this.submitAttempt = true;
 
     if (!this.signupForm.valid) {
+      // TODO error handling here
       console.log(this.signupForm.value);
     } else {
       this.authData.signupUser(this.signupForm.value.email, this.signupForm.value.password).then(() => {
