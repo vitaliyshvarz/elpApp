@@ -6,7 +6,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding id="page-login ">
   <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
 
     <ion-item>
@@ -36,10 +36,10 @@
   </form>
   <ion-row>
       <ion-col width-50>
-        <button ion-button full  color="danger" (click)="loginGoogle()">Use My Google Account</button>
+        <button ion-button full  color="danger" (click)="loginGoogle()">Use Google</button>
       </ion-col>
       <ion-col width-50>
-        <button ion-button full (click)="loginFacebook()">Use My Facebook Account</button>
+        <button ion-button full (click)="loginFacebook()">Use Facebook</button>
       </ion-col>
   </ion-row>
 
