@@ -1,4 +1,4 @@
-page-login {
+#page-login {
   form {
     margin-bottom: 32px;
 
@@ -26,5 +26,9 @@ page-login {
 
   .error-message .item-inner {
     border-bottom: 0 !important;
+
+    p {
+      color: #FF6153;
+    }
   }
 }

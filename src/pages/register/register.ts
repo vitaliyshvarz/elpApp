@@ -10,14 +10,16 @@ import { HomePage } from '../home/home';
 
 @Component({
   selector: 'page-register',
-  templateUrl: 'register.html',
+  templateUrl: 'register.html'
 })
+
 export class RegisterPage {
   public signupForm;
   emailChanged: boolean = false;
   passwordChanged: boolean = false;
   submitAttempt: boolean = false;
   loading: any;
+  passwordMatch: boolean = false;
 
   constructor(
     public nav: NavController,
@@ -28,14 +30,27 @@ export class RegisterPage {
   ) {
     this.signupForm = formBuilder.group({
       email: ['', Validators.compose([Validators.required])],
-      password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
-    })
+      password: ['', Validators.compose([Validators.minLength(6), Validators.required])],
+      repeatPassword: ['', Validators.compose([Validators.required])]
+    }, { validator: this.matchingPasswords('password', 'repeatPassword') })
   }
 
+  matchingPasswords(passwordKey: string, confirmPasswordKey: string) {
+    return (group: any): { [key: string]: any } => {
+      let password = group.controls[passwordKey];
+      let confirmPassword = group.controls[confirmPasswordKey];
+
+      if (password.value !== confirmPassword.value) {
+        return {
+          mismatchedPasswords: true
+        };
+      }
+    }
+  }
   /**
    * Receives an input field and sets the corresponding fieldChanged property to 'true' to help with the styles.
    */
-  elementChanged(input){
+  elementChanged(input) {
     let field = input.inputControl.name;
     this[field + "Changed"] = true;
   }
@@ -46,10 +61,11 @@ export class RegisterPage {
    *
    * If the form is invalid it will just log the form value, feel free to handle that as you like.
    */
-  signupUser(){
+  signupUser() {
     this.submitAttempt = true;
 
-    if (!this.signupForm.valid){
+    if (!this.signupForm.valid) {
+      // TODO error handling here
       console.log(this.signupForm.value);
     } else {
       this.authData.signupUser(this.signupForm.value.email, this.signupForm.value.password).then(() => {

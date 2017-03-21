@@ -54,18 +54,16 @@ export class LoginPage {
     this.authData.loginUserFacebook().then(authData => {
       this.nav.setRoot(HomePage);
     }, error => {
-      this.loading.dismiss().then(() => {
-        let alert = this.alertCtrl.create({
-          message: error.message,
-          buttons: [
-            {
-              text: "Ok",
-              role: 'cancel'
-            }
-          ]
-        });
-        alert.present();
+      let alert = this.alertCtrl.create({
+        message: error.message,
+        buttons: [
+          {
+            text: "Ok",
+            role: 'cancel'
+          }
+        ]
       });
+      alert.present();
     });
 
     this.loading = this.loadingCtrl.create();
@@ -80,18 +78,16 @@ export class LoginPage {
     this.authData.loginUserGoogle().then(authData => {
       this.nav.setRoot(HomePage);
     }, error => {
-      this.loading.dismiss().then(() => {
-        let alert = this.alertCtrl.create({
-          message: error.message,
-          buttons: [
-            {
-              text: "Ok",
-              role: 'cancel'
-            }
-          ]
-        });
-        alert.present();
+      let alert = this.alertCtrl.create({
+        message: error.message,
+        buttons: [
+          {
+            text: "Ok",
+            role: 'cancel'
+          }
+        ]
       });
+      alert.present();
     });
 
     this.loading = this.loadingCtrl.create();
@@ -115,7 +111,6 @@ export class LoginPage {
       this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password).then(authData => {
         this.nav.setRoot(HomePage);
       }, error => {
-        console.log('Wwwww')
         this.loading.dismiss().then(() => {
           let alert = this.alertCtrl.create({
             message: error.message,

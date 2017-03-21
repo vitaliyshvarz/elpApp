@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { Platform, LoadingController } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 
@@ -22,28 +22,32 @@ export class MyApp {
   constructor(
     public authData: AuthData,
     public platform: Platform,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    private zone: NgZone
   ) {
 
     Firebase.auth().onAuthStateChanged((user) => {
-        this.userName = new Promise<string>((resolve) => {
+      this.userName = new Promise<string>((resolve) => {
+
+        this.zone.run(() => {
           if (user && user.displayName) {
             resolve(user.displayName);
-          } else if(user && user.email){
+          } else if (user && user.email) {
             resolve(user.email);
           } else {
             resolve('NO USER DATA');
           }
+          if (user) {
+            // user logged in
+            this.user = user;
+            this.rootPage = HomePage;
+          } else {
+            // user not logged in
+            this.rootPage = LoginPage;
+            this.user = {};
+          }
         });
-        if (user) {
-          // user logged in
-          this.user = user;
-          this.rootPage = HomePage;
-        } else {
-          // user not logged in
-          this.rootPage = LoginPage;
-          this.user = {};
-        }
+      });
     });
 
     platform.ready().then(() => StatusBar.styleDefault());

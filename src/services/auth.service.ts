@@ -12,9 +12,6 @@ export class AuthData {
   constructor() {
     this.googleProvider = new Firebase.auth.GoogleAuthProvider();
     this.facebookProvider = new Firebase.auth.FacebookAuthProvider();
-
-    //this.fireAuth = firebase.auth();
-    //this.userProfile = firebase.database().ref('/userProfile');
   }
 
   public loginUserGoogle() {
