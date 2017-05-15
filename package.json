@@ -19,7 +19,9 @@
     "@angular/platform-browser": "2.2.1",
     "@angular/platform-browser-dynamic": "2.2.1",
     "@angular/platform-server": "2.2.1",
+    "@ionic/cli-plugin-cordova": "^1.0.0",
     "@ionic/storage": "1.1.7",
+    "cordova-plugin-inappbrowser": "^1.7.1",
     "firebase": "^3.6.8",
     "ionic-angular": "2.0.0",
     "ionic-native": "2.4.1",
@@ -30,6 +32,8 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "^1.0.0",
+    "@ionic/cli-plugin-cordova": "1.0.0",
+    "@ionic/cli-plugin-ionic-angular": "1.0.0",
     "typescript": "2.0.9"
   },
   "cordovaPlugins": [
@@ -41,5 +45,10 @@
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [],
-  "description": "af2-lists: An Ionic project"
+  "description": "af2-lists: An Ionic project",
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-inappbrowser": {}
+    }
+  }
 }
