@@ -5,8 +5,8 @@ import { StatusBar } from 'ionic-native';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 
-import * as Firebase from 'firebase';
 import { AuthData } from '../services/auth.service';
+import { LoggedService } from '../services/logged.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,10 +23,23 @@ export class MyApp {
     public authData: AuthData,
     public platform: Platform,
     public loadingCtrl: LoadingController,
-    private zone: NgZone
+    private zone: NgZone,
+      private loggedService: LoggedService
   ) {
 
-    Firebase.auth().onAuthStateChanged((user) => {
+    this.loggedService.getLogged().subscribe(logged => {
+        this.checkUserData();
+    });
+
+    this.checkUserData()
+
+    platform.ready().then(() => StatusBar.styleDefault());
+  }
+
+  checkUserData() {
+      const userData: any = localStorage.getItem('currentUser');
+      const user = !!userData ? JSON.parse(userData) : null;
+
       this.userName = new Promise<string>((resolve) => {
 
         this.zone.run(() => {
@@ -48,13 +61,10 @@ export class MyApp {
           }
         });
       });
-    });
-
-    platform.ready().then(() => StatusBar.styleDefault());
   }
 
   public logout() {
-    this.authData.logoutUser()
+    this.authData.logout()
       .then(status => this.rootPage = HomePage)
       .catch(err => console.error('error in logout', err));
 

@@ -4,10 +4,13 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
-import { ResetPasswordPage } from '../pages/reset-password/reset-password'
+import { ResetPasswordPage } from '../pages/reset-password/reset-password';
+import { HttpModule } from '@angular/http';
 
 
 import { AuthData } from '../services/auth.service';
+import { LoggedService } from '../services/logged.service';
+import { SessionService } from '../services/session.service';
 
 // Import the firebase Module
  import * as Firebase from 'firebase';
@@ -33,6 +36,8 @@ Firebase.initializeApp(config);
   ],
   imports: [
     IonicModule.forRoot(MyApp),
+    HttpModule
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -43,7 +48,9 @@ Firebase.initializeApp(config);
     ResetPasswordPage
   ],
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler },
-    AuthData
+    AuthData,
+    LoggedService,
+    SessionService
   ]
 })
 export class AppModule { }

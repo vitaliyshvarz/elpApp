@@ -51,20 +51,20 @@ export class LoginPage {
   loginFacebook() {
     this.submitAttempt = true;
 
-    this.authData.loginUserFacebook().then(authData => {
-      this.nav.setRoot(HomePage);
-    }, error => {
-      let alert = this.alertCtrl.create({
-        message: error.message,
-        buttons: [
-          {
-            text: "Ok",
-            role: 'cancel'
-          }
-        ]
-      });
-      alert.present();
-    });
+    // this.authData.loginUserFacebook().then(authData => {
+    //   this.nav.setRoot(HomePage);
+    // }, error => {
+    //   let alert = this.alertCtrl.create({
+    //     message: error.message,
+    //     buttons: [
+    //       {
+    //         text: "Ok",
+    //         role: 'cancel'
+    //       }
+    //     ]
+    //   });
+    //   alert.present();
+    // });
 
     this.loading = this.loadingCtrl.create();
     this.loading.present().then(() => {
@@ -75,20 +75,20 @@ export class LoginPage {
   loginGoogle() {
     this.submitAttempt = true;
 
-    this.authData.loginUserGoogle().then(authData => {
-      this.nav.setRoot(HomePage);
-    }, error => {
-      let alert = this.alertCtrl.create({
-        message: error.message,
-        buttons: [
-          {
-            text: "Ok",
-            role: 'cancel'
-          }
-        ]
-      });
-      alert.present();
-    });
+    // this.authData.loginUserGoogle().then(authData => {
+    //   this.nav.setRoot(HomePage);
+    // }, error => {
+    //   let alert = this.alertCtrl.create({
+    //     message: error.message,
+    //     buttons: [
+    //       {
+    //         text: "Ok",
+    //         role: 'cancel'
+    //       }
+    //     ]
+    //   });
+    //   alert.present();
+    // });
 
     this.loading = this.loadingCtrl.create();
     this.loading.present().then(() => {
@@ -108,12 +108,12 @@ export class LoginPage {
     if (!this.loginForm.valid) {
       console.log(this.loginForm.value);
     } else {
-      this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password).then(authData => {
+      this.authData.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(authData => {
         this.nav.setRoot(HomePage);
       }, error => {
         this.loading.dismiss().then(() => {
           let alert = this.alertCtrl.create({
-            message: error.message,
+            message: error,
             buttons: [
               {
                 text: "Ok",

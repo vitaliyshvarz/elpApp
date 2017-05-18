@@ -42,7 +42,7 @@ export class ResetPasswordPage {
     if (!this.resetPasswordForm.valid) {
       console.log(this.resetPasswordForm.value);
     } else {
-      this.authData.resetPassword(this.resetPasswordForm.value.email).then((user) => {
+      this.authData.sendRecoveryPassEmail(this.resetPasswordForm.value.email).subscribe((user) => {
         let alert = this.alertCtrl.create({
           message: "We just sent you a reset link to your email",
           buttons: [
