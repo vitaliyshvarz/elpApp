@@ -6,25 +6,12 @@ import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { HttpModule } from '@angular/http';
-
+import { IonicStorageModule } from '@ionic/storage';
 
 import { AuthData } from '../services/auth.service';
 import { LoggedService } from '../services/logged.service';
 import { SessionService } from '../services/session.service';
-
-// Import the firebase Module
- import * as Firebase from 'firebase';
-
-// Initialize Firebase
-var config = {
-  apiKey: "AIzaSyBXJdmFDX4viPCnjDMFFs1tmvXObbcJ200",
-  authDomain: "eatlikepro-c3c21.firebaseapp.com",
-  databaseURL: "https://eatlikepro-c3c21.firebaseio.com",
-  storageBucket: "eatlikepro-c3c21.appspot.com",
-  messagingSenderId: "1022163181712"
-};
-
-Firebase.initializeApp(config);
+import { FacebookService } from '../services/facebook.service';
 
 @NgModule({
   declarations: [
@@ -36,8 +23,8 @@ Firebase.initializeApp(config);
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    HttpModule
-
+    HttpModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -50,7 +37,9 @@ Firebase.initializeApp(config);
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthData,
     LoggedService,
-    SessionService
+    SessionService,
+    FacebookService
   ]
 })
+
 export class AppModule { }

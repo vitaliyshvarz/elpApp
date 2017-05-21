@@ -1,10 +1,11 @@
 import {
   NavController,
   LoadingController,
-  AlertController } from 'ionic-angular';
-import { Component } from '@angular/core';
+  AlertController }   from 'ionic-angular';
+import { Component }  from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthData } from '../../services/auth.service';
+import { FacebookService } from '../../services/facebook.service';
 import { RegisterPage } from '../register/register';
 import { HomePage } from '../home/home';
 import { ResetPasswordPage } from '../reset-password/reset-password';
@@ -25,7 +26,8 @@ export class LoginPage {
     public authData: AuthData,
     public formBuilder: FormBuilder,
     public alertCtrl: AlertController,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController,
+    public facebookService: FacebookService) {
 
     /**
      * Creates a ControlGroup that declares the fields available, their values and the validators that they are going
@@ -51,20 +53,23 @@ export class LoginPage {
   loginFacebook() {
     this.submitAttempt = true;
 
-    // this.authData.loginUserFacebook().then(authData => {
-    //   this.nav.setRoot(HomePage);
-    // }, error => {
-    //   let alert = this.alertCtrl.create({
-    //     message: error.message,
-    //     buttons: [
-    //       {
-    //         text: "Ok",
-    //         role: 'cancel'
-    //       }
-    //     ]
-    //   });
-    //   alert.present();
-    // });
+    this.facebookService.onFacebookLoginClick().subscribe(authData => {
+      debugger;
+      this.nav.setRoot(HomePage);
+    }, (error) => {
+      debugger;
+      this.loading.dismiss().catch(() => { });
+      let alert = this.alertCtrl.create({
+        message: error.json().errmsg || error.json().message,
+        buttons: [
+          {
+            text: "Ok",
+            role: 'cancel'
+          }
+        ]
+      });
+      alert.present();
+    });
 
     this.loading = this.loadingCtrl.create();
     this.loading.present().then(() => {
@@ -110,24 +115,23 @@ export class LoginPage {
     } else {
       this.authData.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(authData => {
         this.nav.setRoot(HomePage);
-      }, error => {
-        this.loading.dismiss().then(() => {
-          let alert = this.alertCtrl.create({
-            message: error,
-            buttons: [
-              {
-                text: "Ok",
-                role: 'cancel'
-              }
-            ]
-          });
-          alert.present();
+      }, (error) => {
+        this.loading.dismiss().catch(() => { });
+        let alert = this.alertCtrl.create({
+          message: error.json().errmsg || error.json().message,
+          buttons: [
+            {
+              text: "Ok",
+              role: 'cancel'
+            }
+          ]
         });
+        alert.present();
       });
 
       this.loading = this.loadingCtrl.create();
       this.loading.present().then(() => {
-        this.loading.dismiss();
+        this.loading.dismiss().catch(() => { });
       });
     }
   }
