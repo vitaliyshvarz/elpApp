@@ -11,6 +11,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { AuthData } from '../services/auth.service';
 import { LoggedService } from '../services/logged.service';
 import { SessionService } from '../services/session.service';
+import { FacebookService } from '../services/facebook.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,9 @@ import { SessionService } from '../services/session.service';
   providers: [{ provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthData,
     LoggedService,
-    SessionService
+    SessionService,
+    FacebookService
   ]
 })
+
 export class AppModule { }

@@ -57,7 +57,9 @@ export class AuthData {
   }
 
   public signup(userData: any) {
-    let user = new User({
+    const newUser = new User({
+      firstName: userData.firstName,
+      lastName: userData.lastName,
       password: userData.password,
       email: userData.email,
       registrationType: userData.registrationType,
@@ -65,7 +67,7 @@ export class AuthData {
     });
 
 
-    return this.http.post(BACKEND_API.signup, user)
+    return this.http.post(BACKEND_API.signup, newUser)
       .map((response: Response) => {
         if (response.status === 200) {
           const user = response.json().user;
