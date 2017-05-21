@@ -76,9 +76,9 @@ export class RegisterPage {
       this.authData.signup(user).subscribe(() => {
         this.nav.setRoot(HomePage);
       }, (error) => {
-        this.loading.dismiss();
+        this.loading.dismiss().catch(() => { });
         let alert = this.alertCtrl.create({
-          message: error.message,
+          message: error.json().errmsg || error.json().message,
           buttons: [
             {
               text: "Ok",
@@ -91,7 +91,7 @@ export class RegisterPage {
 
       this.loading = this.loadingCtrl.create();
       this.loading.present().then(() => {
-        this.loading.dismiss();
+        this.loading.dismiss().catch(() => { });
       });
     }
   }

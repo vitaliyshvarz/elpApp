@@ -1,4 +1,4 @@
 export const CURRENCIES: any = [
-    { name: 'USD', postfix: '$' },
-    { name: 'EUR', postfix: '€' }
+  { name: 'USD', postfix: '$' },
+  { name: 'EUR', postfix: '€' }
 ];

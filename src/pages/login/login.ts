@@ -110,24 +110,23 @@ export class LoginPage {
     } else {
       this.authData.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(authData => {
         this.nav.setRoot(HomePage);
-      }, error => {
-        this.loading.dismiss().then(() => {
-          let alert = this.alertCtrl.create({
-            message: error,
-            buttons: [
-              {
-                text: "Ok",
-                role: 'cancel'
-              }
-            ]
-          });
-          alert.present();
+      }, (error) => {
+        this.loading.dismiss().catch(() => { });
+        let alert = this.alertCtrl.create({
+          message: error.json().errmsg || error.json().message,
+          buttons: [
+            {
+              text: "Ok",
+              role: 'cancel'
+            }
+          ]
         });
+        alert.present();
       });
 
       this.loading = this.loadingCtrl.create();
       this.loading.present().then(() => {
-        this.loading.dismiss();
+        this.loading.dismiss().catch(() => { });
       });
     }
   }
