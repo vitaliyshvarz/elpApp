@@ -68,7 +68,12 @@ export class RegisterPage {
       // TODO error handling here
       console.log(this.signupForm.value);
     } else {
-      this.authData.signupUser(this.signupForm.value.email, this.signupForm.value.password).then(() => {
+      const user = {
+        email: this.signupForm.value.email,
+        password: this.signupForm.value.password,
+        registrationType: 'email'
+      }
+      this.authData.signup(user).subscribe(() => {
         this.nav.setRoot(HomePage);
       }, (error) => {
         this.loading.dismiss();
